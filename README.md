@@ -132,3 +132,36 @@ When comparing strings, it is crucial to make sure that both string variables ha
 ### 9. INTRODUCTION TO LOOPS
 
 To read a double, use: `double number = Double.parseDouble(reader.nextLine());`
+
+
+When performing the assignment operation on an existing variable, it is written as `variable operation= change`, for example `variable += 5`.
+
+When you are programming something, no matter if it is an exercise or a project of your own, it is advised to do it in very tiny pieces. Do not ever try to solve the whole problem in one go. Start with something easy, something you know that you can do.
+
+### 12. METHODS
+
+Technically speaking, a method is a piece of code that can be called from different places of the program code. The line of code System.out.println("I am a parameter given to the method!") means that we call a method that actually handles the printing. After the method has been executed we go back to where we called the method, and continue executing. The input given to the method inside the brackets is called a method parameter.
+
+The methods are written in the program body outside the main's braces ( { and } ) but still inside the outermost braces, for example like this: :
+
+```java
+import java.util.Scanner;
+
+public class ProgramBody {
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        // program code
+        greet();
+
+    }
+
+    // self-written methods
+    public static void greet() {
+        System.out.println("Greetings from the world of methods!");
+    }
+}
+```
+
+What is noteworthy here is the execution order of the program code. The execution starts with the main program's (or main's) lines of code, from top to bottom, one by one. When the line of code to be executed happens to be a method call, the lines of code in the method block are executed again one by one. When the method block ends, the execution continues from the place where the method was called. To be exact, the execution continues from the next line after the original method call.
+
+To be even more exact, the main program is also a method. When the program starts, the operation system calls for the main method. That means that the main method is the starting point of the program and the execution starts from the first code line of main. The program execution ends when it reaches the end of main.
