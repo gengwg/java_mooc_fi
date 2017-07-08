@@ -203,3 +203,10 @@ public static String wrongMethod() {
 the return value of the method does not always need to be assigned to a variable. It can also act as a part of the printing command just like any other integer value.
 
 Note: if an exercise involves a method returning something, it means that the return type needs to be defined for the method, and that the method needs to return a value of that type using the return command. In this case, the method does not print (or use the command System.out.println(..)), the method caller handles printing, here, the main program..
+
+### 15. STRINGS OF CHARACTERS
+
+The characters in a string are numbered (indexed) starting from 0. This means that we can reach the last character in a string with number (or index) "the length of the word minus one", or word.charAt(word.length()-1). The following example will make the program crash, because we are trying to get a character from an index that does not exist.
+```java
+char character = word.charAt(word.length());
+```
