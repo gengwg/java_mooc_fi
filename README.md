@@ -274,3 +274,155 @@ public static void main(String[] args) {
 ```
 
 `numbers.remove(4)` tries to remove the item in the index 4 from the list. There are only 2 items in the list, so the command generates an error. We must use a slightly more complicated command if the number 4 needs to be removed: `numbers.remove( Integer.valueOf(4) )`;
+
+### 19. METHODS AND COPYING PARAMETERS
+
+no method variable is visible to other methods.
+The only way to give information to a method is through parameters.
+
+When a parameter is given to a method, the value of the parameter is copied into a new variable and that new variable is the one the method uses.
+
+The method can still naturally pass information to the caller, which happens by using a return value (i.e. using a return command to return a variable with a value).
+
+If a method gets an ArrayList as a parameter, the method sees the original list and all the changes the method makes will take effect everywhere.
+
+Unlike a parameter of int type, a list will not be copied and therefore the method makes changes to the original list given as a parameter.
+
+In Java only the values of primitive data types (which are int, double, char, boolean and a couple of others that we have not yet discussed) get copied to the method. When the method parameters are of other types only the references are copied to the method. A reference is like a "wire", therefore the method can access the list using it directly. The variables that are not of primitive data types are of reference data types.
+
+### 20. INSTRUCTIONS ON CODE-WRITING AND PROBLEM SOLVING
+
+Fowler: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand."
+Beck: "I'm not a great programmer, I'm just good a programmer with great habits."
+
+### 21. OBJECT-ORIENTED PROGRAMMING
+
+In procedural programming - which is the way of programming we have been studying so far - a program is divided in to smaller parts, methods. A method works as a separate part of a program and it can be called from anywhere in the program. When a method is called, execution of the program moves to the beginning of the called method. After the execution of the method is done, the program will continue from where the method was called.
+
+In object oriented programming, just like in procedural programming, we attempt to divide a program into smaller parts. In object-oriented programming the small parts are objects. Each separate object has its own individual responsibility; an object contains a related group of information and functionality. Object-oriented programs consist of multiple objects which together define how the program works.
+
+In Java, objects are always created with new, except in a few cases.
+
+#### 21.2 CLASS
+
+The type of a certain group of objects is called a class. ArrayList is a class, as are String, Scanner, and so forth. Objects, on the other hand, are instances of classes.
+
+Objects of the same class all have the same methods and a similar state. For example, the state of an ArrayList object consists of elements inserted to the list while the state of a String object consists of a string of characters.
+
+#### 21.3 A CLASS AND ITS OBJECTS
+
+A class defines what kind of objects it has:
+
+* what methods the objects have
+* what the state of the objects are, or in other words, what kind of attributes the objects have
+
+A class describes the "blueprint" of the objects that are made out of it (are instances of it).
+
+The blueprints are the class, they define the general characteristics of the objects created out of that class:
+
+An object is always created from its class by calling the method - the constructor - that creates the object with the command new. For example, a new instance is created from the class Scanner by calling new Scanner(..):
+```java
+Scanner reader = new Scanner(System.in);
+```
+
+Constructors take parameters the way any other method does.
+
+#### 21.4 DEFINING YOUR OWN CLASS - OBJECT VARIABLES
+
+the keyword private in front means that name and age will not show outside of the object, but are instead hidden within it. Hiding things within an object is called encapsulation.
+
+Variables defined within a class are called object variables, object fields or object attributes.
+
+The 'state' of the objects is determined by the values that have been set to its variables.
+
+The constructor for the Person class that creates a new Person object has been defined in the following example. In the constructor, the person that is being created gets 0 as her age and her name is received from the parameter of the constructor.
+```java
+public class Person {
+    private String name;
+    private int age;
+
+    public Person(String initialName) {
+        this.age = 0;
+        this.name = initialName;
+    }
+}
+```
+
+The constructor always has the same name as the class.
+You can imagine the constructor as a method that Java runs when an object is created with the command new Person("Bob"); Whenever an object is created from a class, the constructor of that class is called.
+
+
+The variables age and name are automatically visible in the constructor and elsewhere in the object. They are referred to with the this prefix. Due to the private modifier, the variables cannot be seen from outside the object.
+
+One more thing: if the programmer does not create a constructor for her class, Java will automatically create a default constructor for it. A default constructor is a constructor that does nothing. So, if you for some reason do not need a constructor you do not need to write one.
+
+With objects the keyword static is not used in method definitions.
+
+All the object variables are visible from all the methods of the object.
+
+The state of an object is independent of the other objects.
+
+```java
+public class Person {
+    // ...
+
+    public String getName() {
+        return this.name;
+    }
+}
+```
+The method getName returns the object variable name to its caller. The name of the method might seem a little odd (or not). In Java, it is considered the 'correct' way to name an object-variable-returning method in this manner; as getVariableName. Methods like these are often called 'getters'.
+
+The recommended way of doing this is by defining a method that returns a "character string representation" of the object. In Java, a method returning a String representation is called toString.
+```java
+public class Person {
+    // ...
+
+    public String toString() {
+        return this.name + ", age " + this.age + " years";
+    }
+}
+```
+
+The principle is that the System.out.println method requests the string representation of an object and then prints it. The returned string representation of the toString method does not have to be written, as Java adds it automatically. When the programmer writes:
+```java
+        System.out.println( andy );
+```
+
+Java completes the call during runtime to the format:
+```java
+        System.out.println( andy.toString() );
+```
+
+In naming the methods, we follow the Java convention to call a method that just sets a new value to a variable setVariableName. This type of methods are usually called setter methods.
+
+### 21.11 OBJECT VARIABLE AND PARAMETER WITH IDENTICAL NAME
+
+Above, the method setHeight assigns the object variable height the value of the parameter newHeight:
+```java
+public void setHeight(int newHeight) {
+    this.height = newHeight;
+}
+```
+
+The parameter could also be named identically with the object variable:
+```java
+public void setHeight(int height) {
+    this.height = height;
+}
+```
+
+Now, the name height means the parameter height and the identically named object variable is referred to as `this.height`. The following would not work since the object variable height is not at all referred to in the code:
+```java
+public void setHeight(int height) {
+    // DOES NOT WORK!
+    height = height;
+    // this just assigns the value of the parameter to the parameter itself
+}
+```
+
+Object-oriented programming is mostly about turning concepts into their own entities, or in other words forming abstractions.
+
+Turning a concept into a class of its own is a good idea for a lot of reasons. Firstly, some details (i.e. when the counter makes a full round) can be hidden inside the class (abstracted). Instead of writing an if-clause and an assignment operation, it is enough that the user of the counter calls the descriptively named method next(). In addition to clocks, the created counter might be good for being used as a building block for other projects too, so a class made from a clear concept can be very versatile. Another huge advantage we gain by writing code this way, is that when the details of the mechanics are hidden, they can be changed if need be.
+
+We established that a clock contains three hands, it consists of three concepts. Actually the clock itself is a concept too and next week we will make the class Clock. Then, we can create distinct Clock objects. Clock will be an object which functionality is based on "simpler" objects, the hands. This is the grand idea of object-oriented programming: a program is built out of small, clearly defined co-operating objects.
