@@ -426,3 +426,50 @@ Object-oriented programming is mostly about turning concepts into their own enti
 Turning a concept into a class of its own is a good idea for a lot of reasons. Firstly, some details (i.e. when the counter makes a full round) can be hidden inside the class (abstracted). Instead of writing an if-clause and an assignment operation, it is enough that the user of the counter calls the descriptively named method next(). In addition to clocks, the created counter might be good for being used as a building block for other projects too, so a class made from a clear concept can be very versatile. Another huge advantage we gain by writing code this way, is that when the details of the mechanics are hidden, they can be changed if need be.
 
 We established that a clock contains three hands, it consists of three concepts. Actually the clock itself is a concept too and next week we will make the class Clock. Then, we can create distinct Clock objects. Clock will be an object which functionality is based on "simpler" objects, the hands. This is the grand idea of object-oriented programming: a program is built out of small, clearly defined co-operating objects.
+
+The technique in which a class has two constructors is called constructor overloading. A class can have multiple constructors, which are different from one another according to parameter quanitities and/or types. However, it is not possible to create two different constructors that have exactly the same type of parameters. We cannot add a constructor `public Person(String name, int weight)` on top of the old ones, since it is impossible for Java to tell the difference between this one and the one in which the integer stands for the age.
+
+#### CALLING YOUR OWN CONSTRUCTOR
+
+you can call another constructor from within a constructor with `this`:
+```java
+public Person(String name) {
+    this(name, 0);  // run here the other constructor's code and set the age parameter to 0
+}
+
+public Person(String name, int age) {
+    this.name = name;
+    this.age = age;
+    this.weight = 0;
+    this.height = 0;
+}
+```
+
+The object can be accessed through the variable. Technically speaking, the object is not within the variable, but refers to the object that was born. In other words, the object is 'at the end of a wire' that is attached to the variable.
+```java
+public static void main(String[] args) {
+    Person pekka = new Person("Pekka", 24);
+
+    System.out.println( pekka );
+
+    Person person = pekka;
+    person.becomeOlder(25);
+
+    System.out.println( pekka );
+
+    person = null;
+    System.out.println( person );
+
+}
+```
+Prints:
+```
+Pekka, age 24 years
+Pekka, age 49 years
+```
+
+Nothing refers to the second object. The object has become 'garbage'. Java's garbace collector cleans up the garbage every now and then by itself. If this did not happen, the garbage would pile up in the computer's memory until the execution of the program is done.
+
+NullPointerException is an exception state, when we try to call methods of an object with the value null.
+
+Even though age is a private object variable, we can read the value of the variable by writing compared.age. This is because private variables can be read in all methods that the class in question contains.
