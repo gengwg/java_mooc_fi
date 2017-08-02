@@ -473,3 +473,94 @@ Nothing refers to the second object. The object has become 'garbage'. Java's gar
 NullPointerException is an exception state, when we try to call methods of an object with the value null.
 
 Even though age is a private object variable, we can read the value of the variable by writing compared.age. This is because private variables can be read in all methods that the class in question contains.
+
+The instance variables euros and cents have been defined as final meaning that once the variables have been set, the value of those can not be changed. An object value of which can not be changed is said to be immutable. If we need to e.g. calculate the sum of two money objects, we need to create a new money object that represents the sum of the originals.
+
+#### 24.1 CHARACTER STRINGS ARE IMMUTABLE
+
+The String objects of Java, as with the Money class objects, are unchangeable, immutable. If for example a new object is concatenated to the end of a character string with the + operator, the original character string doesn't become longer, but a new character string object is born:
+```java
+String characterString = "test";
+characterString + "tail";
+
+System.out.println( characterString );  // test
+```
+
+We see that the character string cannot be changed, but we can add the value of the new character string - that was born from concatenation - to the old variable:
+```java
+String characterString = "test";
+characterString = characterString + "tail";   // or characterString += "tail";
+
+System.out.println( characterString );  // testtail
+```
+
+Now the variable characterString refers to a new character string object, which was created by combining the previous character string value the variable referred to ("test") with the "tail" character string. Nothing refers to the "test" character string object anymore.
+
+### 25. ARRAY
+
+Unlike with ArrayLists, the size of the array (the amount of cells in an array) cannot be changed, growing an array always requires creating a new array and copying the cells of the old array to the new one.
+
+If an index points past an array, that is, to a cell that doesn't exist, we will get an error: ArrayIndexOutOfBoundsException, which means that the index that we pointed at doesn't exist. So we cannot refer to a cell that is past the array - to an index that is smaller than 0, or larger or equals the size of the array.
+
+When iterating through an array it isn't always necessary to list the indexes of it, the only interesting thing is the values of the array. In this case we can use the for-each-structure to go through the values.
+```java
+int[] numbers = {1,8,10,3,5};
+
+for (int number : numbers) {
+    System.out.println(number);
+}
+
+String[] names = {"Juhana L.", "Matti P.", "Matti L.", "Pekka M."};
+
+for (String name : names) {
+    System.out.println(name);
+}
+```
+
+a for command, as shown in `for (int i = 0; i < 3; i++ )` , has three parts to it: formatting the loop variables; condition; updating the loop variables:
+```java
+int[] numbers = {1, 8, 10, 3, 5};
+
+for (int i = 0; i < numbers.length; i++ ) {
+    System.out.println(numbers[i]);
+}
+```
+
+Arrays can be used - just as any other objects - as a parameters to a method. Notice that, as with all objects, the method gets a reference to an array, so all changes done to the content of the array in the method also show up in the main program.
+
+the name of the parameter within a method can be freely chosen. The name does not need to be the same as in the one used in calling it. \\
+
+methods are static. The reason for this is that the methods are not instance methods, i.e. not operating with instance variables of objects, instead they are working at "class level" and operating just with the values and objects given as parameter.
+
+we create an array of the type int, that has 99 cells. With this alternative way creation of an array happens just like with any other object; with the command new. Following the new is the type of the array and in the brackets is the size of the array.
+```java
+int cells = 99;
+int[] array = new int[cells];
+```
+
+### 26. ABOUT BLOCKS AND NESTED LOOPS
+
+An important feature of a block is that variables defined within it only exist within it..
+
+### 27. STATIC METHOD
+
+We notice that the method definition now has the keyword static. The reason for that is that the method does not operate on any object, instead it is a class method or in other words static methods. In contrast to instance methods, static methods are not connected to any particular object and thus the reference this is not valid within static methods. A static method can operate only with data that is given it as parameter. The parameter of a static method can naturally be an object.
+
+Since static methods are not connected to any object, those can not be called through the object name: objectName.methodName() but should be called by using only the method name.
+
+If the static method is called from a different class, the call is of the form ClassName.staticMethodName().
+
+All object state-handling methods should be defined as normal object methods.
+
+Because the methods manipulate the object, they do not need to be defined as static, or in other words "not belonging to the object". If we try to do this, the program won't work:
+```java
+public class Person {
+    //...
+
+    public static void becomeOlder() {
+        this.age++;
+    }
+}
+```
+
+As a result we'll get an error non-static variable age can not be referenced from static context, which means that a static method cannot handle an object method.
